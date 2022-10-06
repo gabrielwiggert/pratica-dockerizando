@@ -2,10 +2,16 @@
   "name": "sorteio-feliz",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.ts",
   "type": "module",
   "scripts": {
-    "start": "npx prisma migrate dev && nodemon index.ts"
+    "build": "tsc",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
+    "dev": "nodemon src/server.ts",
+    "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test cross-env NODE_OPTIONS=--experimental-vm-modules jest -- -i",
+    "start": "npm run prisma:deploy && node dist/src/server.js",
+    "start_last": "npx prisma migrate dev && nodemon index.ts"
   },
   "keywords": [],
   "author": "",
